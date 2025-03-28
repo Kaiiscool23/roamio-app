@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+
+    <div>
+        <a href="{{ url_for('update_packages') }}">Update Packages</a>
+        <a href="{{ url_for('search_user') }}">Search User</a>
+
+    </div>
+
+    <h3>All Bookings</h3>
+    <table border="1">
+        <tr>
+            <th>User</th>
+            <th>Package</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.user_name }}</td>
+            <td>{{ booking.package_type }}</td>
+            <td>{{ booking.booking_date }}</td>
+            <td>{{ booking.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{{ url_for('admin_logout') }}">Logout</a>
+
+
+</body>
+</html>

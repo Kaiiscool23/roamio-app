@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature Escapes in Kerala</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Full-Page Background */
+        body {
+            background: url('https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?cs=srgb&dl=pexels-souvenirpixels-417074.jpg&fm=jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Cream-Colored Boxes */
+        .overlay {
+            background: rgba(245, 232, 199, 0.9); /* Soft Cream Tint */
+            backdrop-filter: blur(3px); /* Slight Glass Effect */
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1); /* Light Shadow */
+        }
+
+        /* Button Styling */
+        .btn {
+            background-color: #A67B5B;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #8F644A;
+        }
+    </style>
+</head>
+<body class="text-gray-900">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-[#6C7A89] p-4 text-white text-center text-lg font-semibold rounded-b-lg">
+        Nature Escapes in Kerala
+    </nav>
+
+    <!-- Nature Section -->
+    <div class="mt-6 p-6 max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold text-center text-white">Nature Escapes in Kerala</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+            <!-- Destination Cards -->
+            <div class="overlay">
+                <h3 class="text-xl font-semibold">Kolukkumalai</h3>
+                <p class="text-gray-700">The world's highest tea plantation, offering stunning sunrise views.</p>
+                <a href="{{ url_for('booking_form') }}" class="btn">Explore</a>
+            </div>
+
+            <div class="overlay">
+                <h3 class="text-xl font-semibold">Meesapulimala</h3>
+                <p class="text-gray-700">A popular trekking destination with breathtaking mountain views.</p>
+                <a href="{{ url_for('booking_form') }}" class="btn">Explore</a>
+            </div>
+
+            <div class="overlay">
+                <h3 class="text-xl font-semibold">Gavi Eco Tourism</h3>
+                <p class="text-gray-700">A hidden paradise with lush forests, lakes, and wildlife.</p>
+                <a href="{{ url_for('booking_form') }}" class="btn">Explore</a>
+            </div>
+
+            <div class="overlay">
+                <h3 class="text-xl font-semibold">Silent Valley</h3>
+                <p class="text-gray-700">A pristine rainforest with unique biodiversity and rare species.</p>
+                <a href="{{ url_for('booking_form') }}" class="btn">Explore</a>
+            </div>
+
+            <div class="overlay">
+                <h3 class="text-xl font-semibold">Vattavada</h3>
+                <p class="text-gray-700">A high-altitude farming village with cool weather and scenic views.</p>
+                <a href="{{ url_for('booking_form') }}" class="btn">Explore</a>
+            </div>
+
+            <div class="overlay">
+                <h3 class="text-xl font-semibold">Muneeswaramudi</h3>
+                <p class="text-gray-700">A sacred peak known for its serene trekking trails and religious significance.</p>
+                <a href="{{ url_for('booking_form') }}" class="btn">Explore</a>
+            </div>
+
+            <div class="overlay">
+                <h3 class="text-xl font-semibold">Brahmagiri Hills</h3>
+                <p class="text-gray-700">A scenic hill range bordering Kerala and Karnataka, ideal for trekking.</p>
+                <a href="{{ url_for('booking_form') }}" class="btn">Explore</a>
+            </div>
+
+            <div class="overlay">
+                <h3 class="text-xl font-semibold">Parambikulam Tiger Reserve</h3>
+                <p class="text-gray-700">A well-preserved wildlife sanctuary, home to tigers and other exotic species.</p>
+                <a href="{{ url_for('booking_form') }}" class="btn">Explore</a>
+            </div>
+
+            <div class="overlay">
+                <h3 class="text-xl font-semibold">Eravikulam National Park</h3>
+                <p class="text-gray-700">Famous for the endangered Nilgiri Tahr and stunning landscapes.</p>
+                <a href="{{ url_for('booking_form') }}" class="btn">Explore</a>
+            </div>
+
+            <div class="overlay">
+                <h3 class="text-xl font-semibold">Periyar Tiger Reserve</h3>
+                <p class="text-gray-700">A vast wildlife reserve with boat safaris and diverse flora and fauna.</p>
+                <a href="{{ url_for('booking_form') }}" class="btn">Explore</a>
+            </div>
+
+            <div class="overlay">
+                <h3 class="text-xl font-semibold">Kakkadampoyil Offroad</h3>
+                <p class="text-gray-700">A thrilling off-road adventure spot with waterfalls and dense forests.</p>
+                <a href="{{ url_for('booking_form') }}" class="btn">Explore</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-6 p-4 bg-[#6C7A89] text-white text-center rounded-t-lg">
+        © 2025 Nature Escapes. All rights reserved.
+    </footer>
+
+</body>
+</html>

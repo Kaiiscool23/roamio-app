@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Packages</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Update Package Details</h2>
+
+    <form method="POST" action="{{ url_for('update_packages') }}">
+        <label for="package_id">Select Package:</label>
+        <select name="package_id">
+            {% for package in packages %}
+            <option value="{{ package.id }}">{{ package.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="new_price">New Price:</label>
+        <input type="number" name="new_price" required>
+
+        <label for="new_details">New Details:</label>
+        <textarea name="new_details"></textarea>
+
+        <button type="submit">Update Package</button>
+    </form>
+</body>
+</html>

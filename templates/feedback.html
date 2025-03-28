@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback & Reviews - Roamio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: url('https://s7ap1.scene7.com/is/image/incredibleindia/travel-specialist-bg?qlt=82&ts=1727161688083') 
+                        no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+        
+        .navbar {
+            background-color: #06546d;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .feedback-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(255, 253, 250, 0.95);
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .star {
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        .star:hover, .star.selected {
+            color: gold;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: #06546d;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        #submit-btn:hover {
+            background: #06546d;
+        }
+
+        .feedback-list {
+            margin-top: 20px;
+        }
+
+        .feedback-item {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback-item .rating {
+            color: gold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">Roamio Feedback & Reviews</div>
+
+    <!-- Feedback Form -->
+    <div class="feedback-container">
+        <h1 class="text-xl font-bold text-gray-800 text-center">Leave Your Feedback</h1>
+        <p class="text-gray-600 text-center">Rate your experience and share your thoughts!</p>
+
+        <div class="stars" id="stars">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+        </div>
+
+        <textarea id="feedback-text" placeholder="Write your experience (max 1000 words)"></textarea>
+        <button id="submit-btn">Submit Feedback</button>
+
+        <div class="feedback-list" id="feedback-list">
+            <h2 class="text-lg font-bold text-gray-800">Recent Reviews:</h2>
+        </div>
+    </div>
+
+    <script>
+        const stars = document.querySelectorAll(".star");
+        let selectedRating = 0;
+
+        stars.forEach(star => {
+            star.addEventListener("click", function () {
+                selectedRating = this.getAttribute("data-value");
+                stars.forEach(s => s.classList.remove("selected"));
+                for (let i = 0; i < selectedRating; i++) {
+                    stars[i].classList.add("selected");
+                }
+            });
+        });
+
+        document.getElementById("submit-btn").addEventListener("click", function () {
+            const feedbackText = document.getElementById("feedback-text").value.trim();
+            if (selectedRating === 0 || feedbackText === "") {
+                alert("Please provide a rating and feedback.");
+                return;
+            }
+
+            fetch("/submit-feedback", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ rating: selectedRating, feedback: feedbackText }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Feedback submitted successfully!");
+                displayFeedback(data.feedback);
+                document.getElementById("feedback-text").value = "";
+                stars.forEach(s => s.classList.remove("selected"));
+                selectedRating = 0;
+            })
+            .catch(error => console.error("Error:", error));
+        });
+
+        function displayFeedback(feedback) {
+        const feedbackList = document.getElementById("feedback-list");
+        const feedbackItem = document.createElement("div");
+        feedbackItem.classList.add("feedback-item");
+        feedbackItem.innerHTML = `<div class="rating">⭐ ${feedback.rating}</div><p>${feedback.feedback}</p>`;
+        feedbackList.appendChild(feedbackItem);
+        }
+
+    </script>
+
+</body>
+</html>

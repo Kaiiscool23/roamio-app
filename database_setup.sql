@@ -1,0 +1,6 @@
+-- Create Database
+CREATE TABLE visitors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    page TEXT NOT NULL,
+    visit_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

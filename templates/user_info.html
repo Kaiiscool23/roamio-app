@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>User Info</h2>
+
+    <h3>Booking Details</h3>
+    <table border="1">
+        <tr>
+            <th>Package</th>
+            <td>{{ booking[1] }}</td> <!-- Adjust to match column indexes in your DB -->
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ booking[2] }}</td> <!-- Adjust to match column indexes in your DB -->
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td>{{ booking[3] }}</td> <!-- Adjust to match column indexes in your DB -->
+        </tr>
+    </table>
+
+    <form method="POST" action="{{ url_for('update_booking_status', booking_id=booking[0]) }}"> <!-- booking[0] is the booking_id -->
+        <label for="status">Update Status:</label>
+        <select name="status" required>
+            <option value="Pending" {% if booking[2] == 'Pending' %}selected{% endif %}>Pending</option>
+            <option value="Confirmed" {% if booking[2] == 'Confirmed' %}selected{% endif %}>Confirmed</option>
+            <option value="Shipped" {% if booking[2] == 'Shipped' %}selected{% endif %}>Shipped</option>
+            <option value="Delivered" {% if booking[2] == 'Delivered' %}selected{% endif %}>Delivered</option>
+        </select>
+        <button type="submit">Update Status</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('admin_dashboard') }}">Back to Admin Dashboard</a>
+</body>
+</html>

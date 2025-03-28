@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kerala Tourism - Roamio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: url('https://static.toiimg.com/photo/msid-105983317,width-1920,height-1080.cms') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .content {
+            background-color: rgba(255, 255, 255, 0.85); /* Adjusted transparency */
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 90%;
+            margin: auto;
+        }
+        .district-container {
+            display: flex;
+            align-items: center;
+            background: rgba(240, 240, 240, 0.9);
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .district-container img {
+            width: 380px;
+            height: 240px;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body class="text-gray-900">
+    <div class="min-h-screen p-6 content">
+        <h1 class="text-4xl font-bold text-center text-green-700">Explore Kerala</h1>
+        <p class="text-lg text-center mt-2 text-gray-800">Discover the beauty of all 14 districts of Kerala</p>
+        <!-- Top Visited Places Section (Blended, No Heading) -->
+        <div class="mt-6 p-6 bg-gray-100 rounded-lg">
+            <p class="text-lg font-bold text-gray-700 text-center">Top Places to Visit in Kerala:</p>
+    
+        
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+                <!-- Munnar -->
+                <div class="bg-white rounded-lg p-4 shadow-md">
+                    <img src="https://theleafmunnar.com/wp-content/uploads/2024/11/tea-gardens-munnar.jpg" alt="Munnar" class="rounded-lg w-full h-56 object-cover">
+                    <h3 class="text-xl font-semibold mt-3">Munnar</h3>
+                    <p class="text-gray-700">Famous for its tea plantations, rolling hills, and breathtaking views.</p>
+                    
+                </div>
+
+                <!-- Alleppey -->
+                <div class="bg-white rounded-lg p-4 shadow-md">
+                    <img src="https://viacation.com/wp-content/uploads/2025/01/7xm745635-1.jpg" alt="Alleppey" class="rounded-lg w-full h-56 object-cover">
+                    <h3 class="text-xl font-semibold mt-3">Alleppey (Alappuzha)</h3>
+                    <p class="text-gray-700">Known as the "Venice of the East," famous for houseboat cruises and mesmerizing backwaters.</p>
+                    
+                </div>
+
+                <!-- Wayanad -->
+                <div class="bg-white rounded-lg p-4 shadow-md">
+                    <img src="https://www.keralatourism.org/images/microsites/wayanad/waynadu-1024x768.jpg" alt="Wayanad" class="rounded-lg w-full h-56 object-cover">
+                    <h3 class="text-xl font-semibold mt-3">Wayanad</h3>
+                    <p class="text-gray-700">A paradise of lush forests, waterfalls, and wildlife sanctuaries.</p>
+                    
+                </div>
+
+                <!-- Kovalam -->
+                <div class="bg-white rounded-lg p-4 shadow-md">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/01KovalamBeach%26Kerala.jpg" alt="Kovalam" class="rounded-lg w-full h-56 object-cover">
+                    <h3 class="text-xl font-semibold mt-3">Kovalam</h3>
+                    <p class="text-gray-700">Famous for its stunning beaches and vibrant coastal culture.</p>
+                </div>
+
+                <!-- Thekkady -->
+                <div class="bg-white rounded-lg p-4 shadow-md">
+                    <img src="https://peppervine.in/uploads/package/3c0c225567b0802f1785c6844f133407.jpg" alt="Thekkady" class="rounded-lg w-full h-56 object-cover">
+                    <h3 class="text-xl font-semibold mt-3">Thekkady</h3>
+                    <p class="text-gray-700">Home to Periyar Wildlife Sanctuary, offering elephant safaris and spice plantations.</p>
+                    
+                </div>
+
+                <!-- Varkala -->
+                <div class="bg-white rounded-lg p-4 shadow-md">
+                    <img src="https://www.india.com/wp-content/uploads/2024/08/Varkala-Cliff.jpg" alt="Varkala" class="rounded-lg w-full h-56 object-cover">
+                    <h3 class="text-xl font-semibold mt-3">Varkala</h3>
+                    <p class="text-gray-700">A scenic coastal town known for its red cliffs and the famous Papanasam Beach.</p>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 space-y-8">
+            <!-- Thiruvananthapuram -->
+            <div class="district-container">
+                <img src="https://etimg.etb2bimg.com/thumb/msid-114372304,width-1200,height-900,resizemode-4/.jpg" alt="Thiruvananthapuram">
+                <div>
+                    <h2 class="text-2xl font-semibold">Thiruvananthapuram</h2>
+                    <p>The capital of Kerala, known for its heritage and modern infrastructure. Padmanabhaswamy Temple is one of the wealthiest temples in the world. Kovalam Beach is a famous destination with golden sand and scenic sunsets. The Napier Museum displays Kerala’s rich cultural history. Poovar Island offers breathtaking backwater views. Technopark in the city is one of India’s largest IT hubs. Ponmudi Hill Station provides a refreshing retreat with misty hills and lush greenery.</p>
+                    <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                    <ul class="list-disc pl-5">
+                        <li>Padmanabhaswamy Temple</li>
+                        <li>Kovalam Beach</li>
+                        <li>Poovar Island</li>
+                        <li>Napier Museum</li>
+                        <li>Ponmudi Hill Station</li>
+                    </ul>
+            
+                    <div class="mt-4">
+                        <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kollam -->
+            <div class="district-container">
+                <img src="https://www.keralabackwater.com/blog/wp-content/uploads/2019/01/jatayupara.jpg" alt="Kollam">
+                <div>
+                    <h2 class="text-2xl font-semibold">Kollam</h2>
+                    <p>Kollam, known as the gateway to the backwaters, is famous for Ashtamudi Lake. The Neendakara Port is crucial to Kerala’s fishing industry. Palaruvi Waterfalls, meaning ‘stream of milk,’ is a mesmerizing attraction. Jatayu Earth’s Center is home to the world’s largest bird sculpture. Kollam Beach is a perfect getaway with a charming lighthouse. The historic Thevally Palace reflects Kerala’s royal past. Munroe Island offers an authentic village backwater experience.</p>
+                    <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                    <ul class="list-disc pl-5">
+                        <li>Ashtamudi Lake</li>
+                        <li>Jatayu Earth’s Center</li>
+                        <li>Palaruvi Waterfalls</li>
+                        <li>Munroe Island</li>
+                        <li>Thevally Palace</li>
+                    </ul>
+
+                    <div class="mt-4">
+                        <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pathanamthitta -->
+            <div class="district-container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9YSNNNQh_t4aj7XUSJ3NNfAPQpS-X8AWiyQ&s" alt="Pathanamthitta">
+                <div>
+                    <h2 class="text-2xl font-semibold">Pathanamthitta</h2>
+                    <p>Known as the ‘Pilgrim Capital of Kerala,’ it houses the famous Sabarimala Temple. Gavi is a paradise for nature lovers and trekkers. Perunthenaruvi Waterfalls offers a spectacular sight. Konni Elephant Camp is an excellent place to see elephants up close. The Aranmula Parthasarathy Temple is renowned for its unique architecture. The annual Aranmula Boat Race attracts many tourists. The district is known for its metal mirror craft, ‘Aranmula Kannadi.’</p>
+                    <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                    <ul class="list-disc pl-5">
+                        <li>Sabarimala Temple</li>
+                        <li>Gavi Forest</li>
+                        <li>Perunthenaruvi Waterfalls</li>
+                        <li>Konni Elephant Camp</li>
+                        <li>Aranmula Parthasarathy Temple</li>
+                    </ul>
+
+                    <div class="mt-4">
+                        <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alappuzha -->
+            <div class="district-container">
+                <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/473946391.jpg?k=c05f97ce95ec97095969848d08433584592a1b2fda30eb53913c9585c68d30c0&o=&hp=1" alt="Alappuzha">
+                <div>
+                    <h2 class="text-2xl font-semibold">Alappuzha</h2>
+                    <p>Known as the Venice of the East, Alappuzha is famous for its backwaters. The houseboat cruises offer a unique Kerala experience. Alappuzha Beach is known for its historic pier. The Nehru Trophy Boat Race is a major attraction. Kuttanad is known as the ‘Rice Bowl of Kerala.’ Marari Beach is perfect for a peaceful retreat. The Mullakkal Rajarajeswari Temple is an important religious site.</p>
+                    <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                    <ul class="list-disc pl-5">
+                        <li>Alappuzha Backwaters</li>
+                        <li>Houseboat Cruises</li>
+                        <li>Marari Beach</li>
+                        <li>Nehru Trophy Boat Race</li>
+                        <li>Mullakkal Temple</li>
+                    </ul>
+
+                    <div class="mt-4">
+                        <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ernakulam -->
+            <div class="district-container">
+                <img src="https://media1.thrillophilia.com/filestore/iyhdsi3ipex60his53wn4duhig2r_shutterstock_1688004694.jpg" alt="Ernakulam">
+                <div>
+                    <h2 class="text-2xl font-semibold">Ernakulam</h2>
+                    <p>The commercial hub of Kerala, home to Marine Drive’s scenic beauty. Fort Kochi is famous for its colonial architecture. The Chinese fishing nets are a symbol of Kochi’s heritage. Jew Town and Mattancherry showcase Kerala’s diverse culture. Lulu Mall is one of India’s largest shopping malls. Cherai Beach offers a mix of backwaters and sea. Ernakulam is also home to the famous Bolgatty Palace.</p>
+                    <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                    <ul class="list-disc pl-5">
+                        <li>Fort Kochi</li>
+                        <li>Chinese Fishing Nets</li>
+                        <li>Jew Town</li>
+                        <li>Lulu Mall</li>
+                        <li>Cherai Beach</li>
+                    </ul>
+
+                    <div class="mt-4">
+                        <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Kottayam -->
+            <div class="district-container">
+                <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/9c/98/f7/caption.jpg?w=500&h=400&s=1" alt="Kottayam">
+                <div>
+                    <h2 class="text-2xl font-semibold">Kottayam</h2>
+                    <p>Kottayam is known for its literacy rate and publishing industry. The beautiful Vembanad Lake is a major attraction. Kumarakom Bird Sanctuary is home to migratory birds. It is a hub for rubber plantations in Kerala. The ancient Thirunakkara Mahadeva Temple is located here. Ilaveezhapoonchira is a scenic trekking spot. The district is also famous for its backwaters and spice plantations.</p>
+                    <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                    <ul class="list-disc pl-5">
+                        <li>Kumarakom Backwaters</li>
+                        <li>Vembanad Lake</li>
+                        <li>Illikkal Kallu</li>
+                        <li>Bharananganam Church</li>
+                        <li>Vaikom Mahadeva Temple</li>
+                    </ul>
+
+                    <div class="mt-4">
+                        <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Idukki -->
+        <div class="district-container">
+            <img src="https://travelplazablog.wordpress.com/wp-content/uploads/2015/02/munnar.jpg" alt="Idukki">
+            <div>
+                <h2 class="text-2xl font-semibold">Idukki</h2>
+                <p>Idukki is famous for its breathtaking tea plantations in Munnar. The Idukki Dam is one of Asia’s largest arch dams. Periyar Wildlife Sanctuary is home to elephants and tigers. The district is covered with lush forests and hills. Vagamon offers beautiful meadows and pine forests. Ramakkalmedu provides stunning views of Tamil Nadu. Thekkady is a famous tourist destination with spice plantations.</p>
+                <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                <ul class="list-disc pl-5">
+                    <li>Munnar</li>
+                    <li>Thekkady</li>
+                    <li>Idukki Arch Dam</li>
+                    <li>Kalvari Mount</li>
+                    <li>Ramakkalmedu</li>
+                </ul>
+
+                <div class="mt-4">
+                    <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thrissur -->
+        <div class="district-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Kudamatom_at_thrissur_pooram_2013_7618.JPG" alt="Thrissur">
+            <div>
+                <h2 class="text-2xl font-semibold">Thrissur</h2>
+                <p>Known as the Cultural Capital of Kerala, Thrissur hosts the famous Thrissur Pooram festival. Vadakkunnathan Temple is an iconic landmark. The Kerala Kalamandalam promotes classical arts. Athirappilly Waterfalls is often called the ‘Niagara of India.’ Guruvayur Temple attracts thousands of devotees. Punnathur Kotta houses temple elephants. Thrissur is also famous for its gold jewelry industry.</p>
+                <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                <ul class="list-disc pl-5">
+                    <li>Vadakkunnathan Temple</li>
+                    <li>Athirapally Waterfalls</li>
+                    <li>Guruvayur Temple</li>
+                    <li>Punnathur Kotta Elephant Sanctuary</li>
+                    <li>Kerala Kalamandalam</li>
+                </ul>
+
+                <div class="mt-4">
+                    <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Palakkad -->
+        <div class="district-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Palakkad_Tipu_Fort.jpg" alt="Palakkad">
+            <div>
+                <h2 class="text-2xl font-semibold">Palakkad</h2>
+                <p>Palakkad is known as the ‘Granary of Kerala’ due to its vast paddy fields. The historic Palakkad Fort is a major landmark. Silent Valley National Park is home to rare wildlife. Malampuzha Dam is a scenic picnic spot. The district has beautiful mountain ranges and rivers. Nelliyampathy is a popular hill station. Kalpathy Ratholsavam is a famous temple festival celebrated here.</p>
+                <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                <ul class="list-disc pl-5">
+                    <li>Palakkad Fort</li>
+                    <li>Silent Valley National Park</li>
+                    <li>Malampuzha Dam</li>
+                    <li>Parambikulam Wildlife Sanctuary</li>
+                    <li>Dhoni Waterfalls</li>
+                </ul>
+
+                <div class="mt-4">
+                    <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Malappuram -->
+        <div class="district-container">
+            <img src="https://www.keralatourism.org/_next/image/?url=http%3A%2F%2F127.0.0.1%2Fktadmin%2Fimg%2Fpages%2Fmobile%2Fkottakkunnu-1715605468_18a7aaf255155d1d1aa0.webp&w=3840&q=75" alt="Malappuram">
+            <div>
+                <h2 class="text-2xl font-semibold">Malappuram</h2>
+                <p>Malappuram has a rich history and cultural heritage. Kottakkunnu is a beautiful hill garden. Nilambur Teak Museum is the first of its kind in India. The district is famous for its football culture. Kadalundi Bird Sanctuary is home to numerous migratory birds. Ponnani Beach is a scenic coastal destination. Malappuram also has several ancient mosques and temples.</p>
+                <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                <ul class="list-disc pl-5">
+                    <li>Kodikuthimala</li>
+                    <li>Kottakkunnu</li>
+                    <li>Nedumkayam Rainforest</li>
+                    <li>Pazhayangadi Mosque</li>
+                    <li>Teak Museum</li>
+                </ul>
+
+                <div class="mt-4">
+                    <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kozhikode -->
+        <div class="district-container">
+            <img src="https://s3.india.com/wp-content/uploads/2024/05/Feature-Image_-Kozhikode.jpg?impolicy=Medium_Widthonly&w=300&h=225" alt="Kozhikode">
+            <div>
+                <h2 class="text-2xl font-semibold">Kozhikode</h2>
+                <p>Kozhikode is where Vasco da Gama first landed in India. The district is famous for its delicious Malabar cuisine. Kozhikode Beach is a popular tourist attraction. Beypore is known for its ancient shipbuilding industry. Kappad Beach has historical significance. The city is a major educational hub. The famous Mananchira Square is a cultural hotspot.</p>
+                <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                <ul class="list-disc pl-5">
+                    <li>Kozhikode Beach</li>
+                    <li>Beypore Port</li>
+                    <li>Thusharagiri Waterfalls</li>
+                    <li>Kappad Beach</li>
+                    <li>Mananchira Square</li>
+                </ul>
+
+                <div class="mt-4">
+                    <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wayanad -->
+        <div class="district-container">
+            <img src="https://www.wayanad.com/files/slides/2064569462.webp" alt="Wayanad">
+            <div>
+                <h2 class="text-2xl font-semibold">Wayanad</h2>
+                <p>Wayanad is known for its picturesque landscapes and wildlife. Edakkal Caves have ancient petroglyphs. Chembra Peak has a heart-shaped lake. Banasura Sagar Dam is the largest earthen dam in India. Wayanad Wildlife Sanctuary is home to tigers and elephants. Soochipara Waterfalls is a stunning trekking spot. The district has many spice and coffee plantations.</p>
+                <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                <ul class="list-disc pl-5">
+                    <li>Edakkal Caves</li>
+                    <li>Chembra Peak</li>
+                    <li>Soochipara Waterfalls</li>
+                    <li>Banasura Sagar Dam</li>
+                    <li>Wayanad Wildlife Sanctuary</li>
+                </ul>
+        
+                <div class="mt-4">
+                    <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kannur -->
+        <div class="district-container">
+            <img src="https://travelcartindia.com/wp-content/uploads/2023/11/DSC01513-scaled.jpg" alt="Kannur">
+            <div>
+                <h2 class="text-2xl font-semibold">Kannur</h2>
+                <p>Kannur is famous for its Theyyam performances. Muzhappilangad Drive-in Beach is the longest in Asia. St. Angelo Fort is a historic Portuguese fort. Arakkal Museum showcases Kerala’s only Muslim royal family. Payyambalam Beach is a serene getaway. The district is known for its handloom industry. Kannur is also an important center for folklore and traditions.</p>
+                <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                <ul class="list-disc pl-5">
+                    <li>Payyambalam Beach</li>
+                    <li>Muzhappilangad Drive-in Beach</li>
+                    <li>St. Angelo Fort</li>
+                    <li>Parassinikadavu Temple</li>
+                    <li>Arakkal Museum</li>
+                </ul>
+        
+                <div class="mt-4">
+                    <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kasaragod -->
+        <div class="district-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Bekal.jpg" alt="Kasaragod">
+            <div>
+                <h2 class="text-2xl font-semibold">Kasaragod</h2>
+                <p>Kasaragod is famous for Bekal Fort, Kerala’s largest fort. The district has beautiful backwaters and beaches. Ananthapura Lake Temple is a unique attraction. The Chandragiri Fort offers stunning river views. Kumbala is known for its annual buffalo race. The district has a mix of Malayalam, Tulu, and Kannada cultures. Ranipuram is a popular trekking and nature destination.</p>
+                <h3 class="text-lg font-semibold mt-2">Must Visit Places:</h3>
+                <ul class="list-disc pl-5">
+                    <li>Bekal Fort</li>
+                    <li>Chandragiri Fort</li>
+                    <li>Ananthapura Lake Temple</li>
+                    <li>Ranipuram Hills</li>
+                    <li>Valiyaparamba Backwaters</li>
+                </ul>
+        
+                <div class="mt-4">
+                    <a href="{{ url_for('booking') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+
+        
+    </div>
+</body>
+</html>

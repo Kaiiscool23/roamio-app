@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roamio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        header {
+            position: relative; /* Ensure positioning works */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <h1>ROAMIO</h1>
+        <nav>
+            <ul style="
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                gap: 15px; 
+                list-style: none; 
+                padding: 15px; 
+                margin: 0;
+                background: white; 
+                border-radius: 10px;
+                width: fit-content;
+                margin: auto; /* Centers the entire menu */
+            ">
+                <li><a href="/feedback" class="feedback-btn" style="background: rgb(49, 130, 24); padding: 12px 18px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Feedback & Review</a></li>
+                <li><a href="/chatbot" class="chatbot-btn" style="background: rgb(49, 130, 24); padding: 12px 18px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Chatbot</a></li>
+                <li><a href="/booking" class="booking-btn" style="background: rgb(49, 130, 24); padding: 12px 18px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Booking Page</a></li>
+                <li><a href="{{ url_for('contact') }}" class="contact-btn" style="background: rgb(49, 130, 24); padding: 12px 18px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Contact Us</a></li>
+                <li><a href="{{ url_for('faq') }}" class="faq-btn" style="background: rgb(49, 130, 24); padding: 12px 18px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">FAQ</a></li>
+                <li><a href="/dashboard" class="dashboard-btn" style="background: rgb(49, 130, 24); padding: 12px 18px; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to</h2>
+            <h1>Roamio</h1>
+            <p>
+                Roamio is a travel booking app powered by a Kerala-based travel agency called Appa's Holidays.
+                We at Appa's Holidays invite you to the fantastic and jovial world of beautiful tourist destinations.
+                We offer a variety of tour packages ranging from our small and beautiful state to around the world.
+                Our aim is to satisfy every single tourist by providing world-class services to make their journey unforgettable...
+            </p>
+            
+
+            <!-- Tour Category Images -->
+            <div class="tour-categories">
+                <a href="{{ url_for('kerala') }}"><img src="{{ url_for('static', filename='images/Kerala.jpg') }}" alt="Kerala Tour"></a>
+                <a href="{{ url_for('nature') }}"><img src="{{ url_for('static', filename='images/nature.jpg') }}" alt="Nature Tour"></a>
+                <a href="{{ url_for('train') }}"><img src="{{ url_for('static', filename='images/train.jpg') }}" alt="Train Tour"></a>
+                <a href="{{ url_for('international') }}"><img src="{{ url_for('static', filename='images/international.jpg') }}" alt="International Tour"></a>
+            </div>
+        </div>
+    </section>
+    <!-- Chatbot Button -->
+<button id="chatbot-toggle" class="fixed bottom-5 right-5 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg">
+    💬 Chat
+</button>
+
+<!-- Chatbot Script -->
+<script>
+    document.getElementById("chatbot-toggle").addEventListener("click", function() {
+        var chatbotWindow = window.open("{{ url_for('chatbot') }}", "Chatbot",
+            "width=400,height=500,left=100,top=100");
+        if (chatbotWindow) {
+            chatbotWindow.focus();
+        } else {
+            alert("Popup blocked! Please allow popups for this site.");
+        }
+    });
+</script>
+{% if session.get("admin") %}
+    <a href="{{ url_for('admin_dashboard') }}" class="bg-red-500 text-white py-2 px-4 rounded">Admin Dashboard</a>
+{% endif %}
+
+</body>
+</html>

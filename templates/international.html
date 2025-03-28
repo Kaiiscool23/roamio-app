@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Tour Packages</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Full-Page Background */
+        body {
+            background: url('https://tii.imgix.net/production/articles/12772/e6e279c7-c6bb-415e-8d1f-0eee12e8a4b9-alDhkb.png?auto=compress&fit=crop&auto=format') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Soft Cream-Colored Boxes */
+        .package-box {
+            background: rgba(253, 246, 236, 0.95); /* Soft Cream */
+            padding: 1rem;
+            border-radius: 10px;
+            color: #1A3A5F; /* Dark Blue for readability */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .package-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Solid Background for Heading */
+        .section-heading {
+            background: #1A3A5F; /* Dark Blue */
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            display: inline-block;
+        }
+
+        /* Explore Button (Now Dark Blue) */
+        .explore-btn {
+            background: #1A3A5F; /* Dark Blue */
+            color: white;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .explore-btn:hover {
+            background: #16304E; /* Slightly Darker Blue */
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-[#1A3A5F] p-4 text-white text-center text-lg font-semibold rounded-b-lg">
+        International Tour Packages
+    </nav>
+
+    <!-- Main Heading -->
+    <div class="mt-6 text-center">
+        <h1 class="text-3xl lg:text-4xl font-bold section-heading">Explore the World</h1>
+    </div>
+
+    <!-- International Packages Section -->
+    <div class="mt-6 p-6 max-w-5xl mx-auto text-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+            <!-- Package Boxes -->
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Dubai</h3>
+                <p>Experience luxury, shopping, and the stunning Burj Khalifa.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Singapore</h3>
+                <p>A futuristic city with stunning skylines and vibrant culture.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Malaysia</h3>
+                <p>From Kuala Lumpur's skyscrapers to Langkawi's beaches.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Thailand</h3>
+                <p>Explore Bangkok, Phuket, and the stunning beaches of Krabi.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Sri Lanka</h3>
+                <p>Rich heritage, scenic landscapes, and golden beaches await.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Maldives</h3>
+                <p>A paradise of overwater villas and crystal-clear waters.</p>
+            </div>
+        </div>
+
+        <!-- Explore More Button -->
+        <div class="mt-8">
+            <a href="{{ url_for('booking_form') }}" class="btn">Book Now</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-6 p-4 bg-[#1A3A5F] text-white text-center rounded-t-lg">
+        © 2025 International Tours. All rights reserved.
+    </footer>
+
+</body>
+</html>

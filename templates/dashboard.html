@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | Roamio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('https://assets.cntraveller.in/photos/65f445fc8411ed4511e9a4c9/4:3/w_4992,h_3744,c_limit/GettyImages-110051777.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="container">
+        <!-- Dashboard Header -->
+        <div class="flex justify-between items-center border-b pb-4">
+            <h2 class="text-2xl font-bold text-gray-800">Welcome, {{ current_user.name }}</h2>
+            {% if current_user.photo %}
+                <img src="data:image/png;base64,{{ current_user.photo }}" class="w-14 h-14 rounded-full border">
+            {% else %}
+                <img src="{{ url_for('static', filename='images/default-profile.jpg') }}" class="w-14 h-14 rounded-full border">
+            {% endif %}
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-3 gap-6 mt-6">
+            
+            <!-- Profile Section -->
+            <div class="bg-white shadow-lg p-6 rounded-lg col-span-1">
+                {% if current_user.photo %}
+                <img src="{{ url_for('static', filename=current_user.photo) }}" class="w-14 h-14 rounded-full border">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/default-profile.jpg') }}" alt="Default Profile Picture" class="rounded-full mx-auto w-32 h-32">
+                {% endif %}
+                <h3 class="text-center text-xl font-bold mt-3">{{ current_user.name }}</h3>
+                <p class="text-center text-gray-600">{{ current_user.email }}</p>
+                <p class="text-center text-gray-600">{{ current_user.phone }}</p>
+                <a href="{{ url_for('edit_profile') }}" class="block mt-4 bg-blue-500 text-white text-center py-2 rounded">Edit Profile</a>
+                <a href="{{ url_for('logout') }}" class="block mt-2 bg-red-500 text-white text-center py-2 rounded">
+                    Logout
+                </a>
+            </div>
+
+            <!-- Booking Details -->
+            <div class="col-span-2">
+                <div class="grid grid-cols-2 gap-4">
+                    
+                    <!-- Current Bookings -->
+                    <div class="bg-white shadow-lg p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold">📅 Current Bookings</h4>
+                        <ul class="mt-2">
+                            {% if current_bookings %}
+                                {% for booking in current_bookings %}
+                                    <li class="bg-gray-100 p-2 rounded my-1">
+                                        📍 {{ booking[1] }} - {{ booking[2] }} <br>
+                                        <span class="text-sm text-gray-600">Status: {{ booking[3] }}</span>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-gray-500">No current bookings.</p>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <!-- Previous Bookings -->
+                    <div class="bg-white shadow-lg p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold">🕒 Previous Bookings</h4>
+                        <ul class="mt-2">
+                            {% if previous_bookings %}
+                                {% for booking in previous_bookings %}
+                                    <li class="bg-green-100 p-2 rounded my-1">
+                                        ✅ {{ booking[1] }} - {{ booking[2] }} <br>
+                                        <span class="text-sm text-gray-600">Status: {{ booking[3] }}</span>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-gray-500">No previous bookings.</p>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <!-- Cancelled Bookings -->
+                    <div class="bg-white shadow-lg p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold">❌ Cancelled Bookings</h4>
+                        <ul class="mt-2">
+                            {% if cancelled_bookings %}
+                                {% for booking in cancelled_bookings %}
+                                    <li class="bg-red-100 p-2 rounded my-1">
+                                        ❌ {{ booking[1] }} - {{ booking[2] }} <br>
+                                        <span class="text-sm text-gray-600">Status: {{ booking[3] }}</span>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-gray-500">No cancelled bookings.</p>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <div class="bg-white shadow-lg p-4 rounded-lg">
+                        <h4 class="text-lg font-semibold">📞 Contact Support</h4>
+                        <p class="text-gray-600">Need help? Contact us anytime!</p>
+                        <p>📞 Call Support: +91 98765 43210</p>
+                        <p>📧 Email: support@roamio.com</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+<!-- Chatbot Button -->
+<button id="chatbot-toggle" class="fixed bottom-5 right-5 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg">
+    💬 Chat
+</button>
+
+<!-- Chatbot Script -->
+<script>
+    document.getElementById("chatbot-toggle").addEventListener("click", function() {
+        var chatbotWindow = window.open("{{ url_for('chatbot') }}", "Chatbot",
+            "width=400,height=500,left=100,top=100");
+        if (chatbotWindow) {
+            chatbotWindow.focus();
+        } else {
+            alert("Popup blocked! Please allow popups for this site.");
+        }
+    });
+</script>
+
+</body>
+</html>

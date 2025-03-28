@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Tour Packages</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Full-Page Background */
+        body {
+            background: url('https://www.tamilnadutourism.tn.gov.in/img/pages/medium-desktop/take-a-ride-in-the-toy-train-1653978188_8ac904b5bdb228abad78.webp') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Cream-Colored Boxes */
+        .package-box {
+            background: rgba(253, 246, 236, 0.9); /* Soft Cream */
+            padding: 1rem;
+            border-radius: 10px;
+            color: #3D3D3D; /* Darker text for readability */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .package-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Non-Transparent Heading */
+        .section-heading {
+            background: #5B7C99; /* Solid Blue */
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            display: inline-block;
+        }
+
+        /* Explore Button */
+        .explore-btn {
+            background: #C95B5B; /* Reddish Pink */
+            color: white;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .explore-btn:hover {
+            background: #B44C4C;
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-[#5B7C99] p-4 text-white text-center text-lg font-semibold rounded-b-lg">
+        Train Tour Packages
+    </nav>
+
+    <!-- Main Heading -->
+    <div class="mt-6 text-center">
+        <h1 class="text-3xl lg:text-4xl font-bold section-heading">Explore India by Train</h1>
+    </div>
+
+    <!-- Train Packages Section -->
+    <div class="mt-6 p-6 max-w-7xl mx-auto text-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+            <!-- Package Boxes -->
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Kashmir</h3>
+                <p>Experience the scenic beauty of the Himalayas with this train journey.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Delhi-Agra</h3>
+                <p>Visit the Taj Mahal and historical forts on this classic route.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Delhi-Agra-Amritsar</h3>
+                <p>A spiritual and historical trip covering the Golden Temple and Taj Mahal.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Delhi-Agra-Jaipur</h3>
+                <p>Explore the Golden Triangle of India, filled with history and culture.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Delhi-Agra-Nainital</h3>
+                <p>A perfect mix of heritage and hill station beauty.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Shimla-Kullu-Manali</h3>
+                <p>A breathtaking journey through the snow-capped mountains.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Rajasthan</h3>
+                <p>Discover the land of kings, deserts, and palaces.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Ajanta-Ellora Caves</h3>
+                <p>Explore ancient rock-cut Buddhist caves and temples.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Mumbai-Aurangabad</h3>
+                <p>A journey through Maharashtra's rich history and culture.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Golden Triangle</h3>
+                <p>Delhi, Agra, and Jaipur - India’s most famous travel circuit.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Hyderabad</h3>
+                <p>Explore the Nizam’s city with its iconic Charminar and delicious cuisine.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Goa</h3>
+                <p>A train journey to India’s party paradise with stunning beaches.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Trivandrum</h3>
+                <p>Explore Kerala’s capital with its temples and beaches.</p>
+            </div>
+
+            <div class="package-box shadow-md">
+                <h3 class="text-xl font-semibold">Chennai</h3>
+                <p>A cultural gateway with rich heritage and stunning beaches.</p>
+            </div>
+        </div>
+
+        <!-- Explore More Button -->
+        <div class="mt-8">
+            <a href="{{ url_for('booking_form') }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Book Now</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-6 p-4 bg-[#5B7C99] text-white text-center rounded-t-lg">
+        © 2025 Train Tours. All rights reserved.
+    </footer>
+
+</body>
+</html>

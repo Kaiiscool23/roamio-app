@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center;
+            background: url('https://images.squarespace-cdn.com/content/v1/64ba44348b6a05559a816bc1/1690282971608-B4BD48EE7DOGJDWKOL52/A+Guide+to+Travel+Photography-152.jpg') 
+                        no-repeat center center fixed;
+            background-size: cover; }
+        form { width: 50%; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background: #f9f9f9; }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button { background-color: #28a745; color: white; font-size: 16px; cursor: pointer; }
+        button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+
+    <h1>Book Your Tour: {{ package_name }}</h1>
+    
+    <form method="POST" action="{{ url_for('booking_form') }}" style="max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px;">
+        <h2 style="text-align: center;">BOOKING FORM</h2>
+    
+        <label>Full Name:</label>
+        <input type="text" name="name" id="name" required
+       pattern="[A-Za-z\s]+" 
+       title="Only letters and spaces are allowed">
+    
+        <label>Email:</label>
+        <input type="email" name="email" required
+pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+title="Enter a valid email (e.g., user@example.com)">
+
+
+    
+        <label>Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required
+       pattern="[0-9]{10}" 
+       maxlength="10"
+       title="Enter a valid 10-digit phone number">
+
+    
+        <label>Number of Adults:</label>
+        <input type="number" name="adults" min="1" required class="form-control">
+    
+        <label>Number of Children:</label>
+        <input type="number" name="children" min="0" required class="form-control">
+    
+        <label>Package Type:</label>
+        <select name="package_type" class="form-control">
+            <option value="1 Day Package">1 Day Package</option>
+            <option value="1 Day 2 Night Package">1 Day 2 Night Package</option>
+            <option value="2 Days Package">2 Days Package</option>
+            <option value="2 Days & 3 Nights Package">2 Days & 3 Nights Package</option>
+            <option value="3 Days Package">3 Days Package</option>
+            <option value="3 Days & 4 Nights Package">3 Days & 4 Nights Package</option>
+            <option value="4 Days & 5 Nights Package">4 Days & 5 Nights Package</option>
+            <option value="5 Days & 6 Nights Package">5 Days & 6 Nights Package</option>
+            <option value="International Package">International Package</option>
+            <option value="Train Package">Train Package</option>
+            <option value="Nature Package">Nature Package</option>
+        </select>
+    
+        <label>Travel Date:</label>
+        <input type="date" id="date" name="date" min="">
+        <script>
+            // Set today's date as the minimum selectable date
+            document.getElementById("date").min = new Date().toISOString().split("T")[0];
+            </script>
+
+    
+        <br>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    
+
+    {% if request.method == 'POST' %}
+    <h3 style="color: rgb(14, 15, 14); margin-top: 20px;">You have Registered for the Tour! Now sit back and relax while our executive contacts you shortly.</h3>
+    {% endif %}
+<!-- Chatbot Button -->
+<button id="chatbot-toggle" class="fixed bottom-5 right-5 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg">
+    💬 Chat
+</button>
+
+<!-- Chatbot Script -->
+<script>
+    document.getElementById("chatbot-toggle").addEventListener("click", function() {
+        var chatbotWindow = window.open("{{ url_for('chatbot') }}", "Chatbot",
+            "width=400,height=500,left=100,top=100");
+        if (chatbotWindow) {
+            chatbotWindow.focus();
+        } else {
+            alert("Popup blocked! Please allow popups for this site.");
+        }
+    });
+</script>
+
+</body>
+</html>

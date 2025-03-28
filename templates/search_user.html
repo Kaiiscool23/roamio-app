@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search User</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Search User</h2>
+
+    <form method="POST" action="{{ url_for('search_user') }}">
+        <label for="email">Enter User Email:</label>
+        <input type="email" name="email" required>
+
+        <button type="submit">Search</button>
+    </form>
+
+    {% if user_data %}
+    <h3>Booking History for {{ user_data.name }}</h3>
+    <table border="1">
+        <tr>
+            <th>Package</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Update</th>
+        </tr>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.package_type }}</td>
+            <td>{{ booking.booking_date }}</td>
+            <td>{{ booking.status }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('update_booking_status', booking_id=booking.id) }}">
+                    <select name="status">
+                        <option value="Pending" {% if booking.status == 'Pending' %} selected {% endif %}>Pending</option>
+                        <option value="Confirmed" {% if booking.status == 'Confirmed' %} selected {% endif %}>Confirmed</option>
+                        <option value="Cancelled" {% if booking.status == 'Cancelled' %} selected {% endif %}>Cancelled</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
