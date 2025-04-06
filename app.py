@@ -9,11 +9,14 @@ from flask import send_from_directory
 import random
 import string
 import base64
+import secrets
+reset_token = secrets.token_urlsafe(32)
+
 
 
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "your_secret_key")
 #CORS(app)
 
 # Database Connection
@@ -111,28 +114,28 @@ def login():
 
 
 
-# Reset Password Request (Sends OTP)
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
     if request.method == 'POST':
-        email = request.form['email']
+        email = request.form['email'].strip().lower()
 
-        # Check if the user exists
-        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
-        user = cursor.fetchone()
+        try:
+            cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+            user = cursor.fetchone()
+        except Exception:
+            flash("Database error. Please try again.", "danger")
+            return redirect(url_for('reset_password_request'))
 
         if user:
-            # Generate a reset token
-            reset_token = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
+            reset_token = secrets.token_urlsafe(32)  # More secure token
             reset_token_expiry = datetime.now() + timedelta(hours=1)
 
-            # Store the reset token and expiry in the database
             cursor.execute("UPDATE users SET reset_token = %s, reset_token_expiry = %s WHERE email = %s", 
                            (reset_token, reset_token_expiry, email))
             db.commit()
 
-            # Send the reset token via email
             reset_link = url_for('reset_password_otp', token=reset_token, _external=True)
+
             msg = Message('Password Reset Request', sender='your_email@gmail.com', recipients=[email])
             msg.body = f'Click the following link to reset your password: {reset_link}'
             mail.send(msg)
@@ -144,13 +147,15 @@ def reset_password_request():
 
     return render_template('reset_password_request.html')
 
-# Reset Password OTP Verification
 @app.route('/reset_password_otp/<token>', methods=['GET', 'POST'])
 def reset_password_otp(token):
-    # Verify the token
-    cursor.execute("SELECT * FROM users WHERE reset_token = %s AND reset_token_expiry > %s", 
-                   (token, datetime.now()))
-    user = cursor.fetchone()
+    try:
+        cursor.execute("SELECT * FROM users WHERE reset_token = %s AND reset_token_expiry > %s", 
+                       (token, datetime.now()))
+        user = cursor.fetchone()
+    except Exception:
+        flash("Database error. Please try again.", "danger")
+        return redirect(url_for('login'))
 
     if not user:
         flash('The reset link is invalid or has expired.', 'danger')
@@ -158,12 +163,17 @@ def reset_password_otp(token):
 
     if request.method == 'POST':
         new_password = request.form['new_password']
-        hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
 
-        # Update password in the database
+        if len(new_password) < 8:
+            flash('Password must be at least 8 characters long.', 'danger')
+            return redirect(url_for('reset_password_otp', token=token))
+
+        hashed_password = generate_password_hash(new_password)
+
         cursor.execute("UPDATE users SET password_hash = %s, reset_token = NULL, reset_token_expiry = NULL WHERE reset_token = %s", 
                        (hashed_password, token))
         db.commit()
+
         flash('Your password has been reset successfully. Please login.', 'success')
         return redirect(url_for('login'))
 
