@@ -156,7 +156,9 @@
             <li class="destination">🌄 Wayanad - Kurumbalakotta</li>
         </ul>
 
-        <button class="proceed-btn" onclick="location.href='booking_form.html'">Proceed</button>
+        <a href="{{ url_for('booking_form') }}">
+            <button class="proceed-btn">Proceed</button>
+        </a>
     </div>
 
 </body>
