@@ -24,7 +24,7 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY", "your_secret_key")
 db_url = os.getenv("MYSQL_URL")
 url = urlparse(db_url)
 
-# Database Connection
+# Updated database connection setup
 db = mysql.connector.connect(
     host=url.hostname,
     user=url.username,
@@ -32,17 +32,21 @@ db = mysql.connector.connect(
     database=url.path.lstrip("/"),
     port=url.port
 )
+
+# Use dictionary=True so fetched rows can be accessed like dicts
 cursor = db.cursor(dictionary=True)
 
 # Database connection function
 def connect_db():
-    return mysql.connector.connect(
+    conn = mysql.connector.connect(
         host=url.hostname,
         user=url.username,
         password=url.password,
         database=url.path.lstrip("/"),
         port=url.port
     )
+    return conn
+
 
 # Directory to store uploaded profile pictures
 UPLOAD_FOLDER = 'static/uploads'  # Ensure this folder exists  # Ensure this matches your folder structure
