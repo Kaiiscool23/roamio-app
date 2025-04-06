@@ -6,6 +6,7 @@ from flask_mail import Mail, Message
 from datetime import datetime, timedelta
 import mysql.connector
 from flask import send_from_directory
+from urllib.parse import urlparse
 import random
 import string
 import base64
@@ -21,16 +22,23 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY", "your_secret_key")
 
 # Database Connection
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="nift2017",
-    database="roamio_db"
+    host=url.hostname,
+    user=url.username,
+    password=url.password,
+    database=url.path[1:],  # skip leading slash
+    port=url.port
 )
 cursor = db.cursor(dictionary=True)
 
 # Database connection function
 def connect_db():
-    return mysql.connector.connect(host="localhost", user="root", password="nift2017", database="roamio_db")
+    return mysql.connector.connect(
+        host=url.hostname,
+        user=url.username,
+        password=url.password,
+        database=url.path[1:],
+        port=url.port
+    )
 
 # Directory to store uploaded profile pictures
 UPLOAD_FOLDER = 'static/uploads'  # Ensure this folder exists  # Ensure this matches your folder structure
