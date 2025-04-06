@@ -13,7 +13,9 @@ import base64
 import secrets
 reset_token = secrets.token_urlsafe(32)
 
-
+# Parse the MYSQL_URL environment variable
+db_url = os.getenv("MYSQL_URL")
+url = urlparse(db_url)
 
 
 app = Flask(__name__)
