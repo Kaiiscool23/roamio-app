@@ -389,7 +389,7 @@ def two_days():
 def one_day_two_night():
     return render_template('one_day_two_night.html')
 
- #Route for one_day_two_night.html
+ #Route for two_day_three_night.html
 @app.route('/two_days_three_nights')
 def two_days_three_nights():
     return render_template('two_days_three_nights.html')
