@@ -14,6 +14,16 @@
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
     <div class="bg-white bg-opacity-75 p-8 rounded shadow-lg max-w-sm w-full">
         <h2 class="text-2xl font-bold text-center mb-4">Sign Up</h2>
         <!-- Sign Up Form -->
@@ -47,13 +57,6 @@
             <a href="{{ url_for('reset_password_request') }}" class="text-blue-600">Forgot Password?</a>
         </div>
     </div>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">{{ message }}</div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
-
+    
 </body>
 </html>
