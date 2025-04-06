@@ -1,5 +1,5 @@
 import os
-from flask import g,Flask, render_template,jsonify, request, redirect, url_for, session, flash
+from flask import Flask, render_template,jsonify, request, redirect, url_for, session, flash
 from flask_bcrypt import Bcrypt
 from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
@@ -64,25 +64,10 @@ mail = Mail(app)
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-@app.before_request
-def before_request():
-    g.db = connect_db()
-    g.cur = g.db.cursor()
-
-@app.teardown_request
-def teardown_request(exception):
-    cur = getattr(g, 'cur', None)
-    if cur is not None:
-        cur.close()
-    db = getattr(g, 'db', None)
-    if db is not None:
-        db.close()
-
 
 # Signup Route
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    cur = g.cur
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
@@ -91,14 +76,14 @@ def signup():
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
         # Check if user already exists
-        cur.execute("SELECT * FROM users WHERE email = %s", (email,))
-        user = cur.fetchone()
+        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+        user = cursor.fetchone()
         if user:
             flash('User already exists. Please login.', 'danger')
             return redirect(url_for('login'))
         else:
             # Add new user to the database
-            cur.execute("INSERT INTO users (name,email,phone, password_hash) VALUES (%s,%s,%s,%s)", (name,email, phone,hashed_password))
+            cursor.execute("INSERT INTO users (name,email,phone, password_hash) VALUES (%s,%s,%s,%s)", (name,email, phone,hashed_password))
             db.commit()
             flash('Registration successful! Please login.', 'success')
             return redirect(url_for('login'))
@@ -106,7 +91,6 @@ def signup():
     return render_template('signup.html')
 @app.route('/login', methods=['GET', 'POST']) 
 def login():
-    cur = g.cur
     print("Login route accessed")  # Debugging line
     if request.method == 'POST':
         print("POST request received")  # Debugging line
@@ -114,8 +98,8 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        cur.execute("SELECT id, email, password_hash, name, phone, role FROM users WHERE email = %s", (email,))
-        user = cur.fetchone()
+        cursor.execute("SELECT id, email, password_hash, name, phone, role FROM users WHERE email = %s", (email,))
+        user = cursor.fetchone()
 
         if user is None:
             flash('User not found. Please register first.', 'danger')
@@ -144,13 +128,12 @@ def login():
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
-    cur = g.cur
     if request.method == 'POST':
         email = request.form['email'].strip().lower()
 
         try:
-            cur.execute("SELECT * FROM users WHERE email = %s", (email,))
-            user = cur.fetchone()
+            cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+            user = cursor.fetchone()
         except Exception:
             flash("Database error. Please try again.", "danger")
             return redirect(url_for('reset_password_request'))
@@ -159,7 +142,7 @@ def reset_password_request():
             reset_token = secrets.token_urlsafe(32)  # More secure token
             reset_token_expiry = datetime.now() + timedelta(hours=1)
 
-            cur.execute("UPDATE users SET reset_token = %s, reset_token_expiry = %s WHERE email = %s", 
+            cursor.execute("UPDATE users SET reset_token = %s, reset_token_expiry = %s WHERE email = %s", 
                            (reset_token, reset_token_expiry, email))
             db.commit()
 
@@ -178,11 +161,10 @@ def reset_password_request():
 
 @app.route('/reset_password_otp/<token>', methods=['GET', 'POST'])
 def reset_password_otp(token):
-    cur = g.cur
     try:
-        cur.execute("SELECT * FROM users WHERE reset_token = %s AND reset_token_expiry > %s", 
+        cursor.execute("SELECT * FROM users WHERE reset_token = %s AND reset_token_expiry > %s", 
                        (token, datetime.now()))
-        user = cur.fetchone()
+        user = cursor.fetchone()
     except Exception:
         flash("Database error. Please try again.", "danger")
         return redirect(url_for('login'))
@@ -200,7 +182,7 @@ def reset_password_otp(token):
 
         hashed_password = generate_password_hash(new_password)
 
-        cur.execute("UPDATE users SET password_hash = %s, reset_token = NULL, reset_token_expiry = NULL WHERE reset_token = %s", 
+        cursor.execute("UPDATE users SET password_hash = %s, reset_token = NULL, reset_token_expiry = NULL WHERE reset_token = %s", 
                        (hashed_password, token))
         db.commit()
 
@@ -246,7 +228,6 @@ def contact():
 # ------------------ Dashboard Route ------------------
 @app.route('/dashboard')
 def dashboard():
-    cur = g.cur
     if 'user_id' not in session:
         return redirect(url_for('login'))  # Redirect if not logged in
 
@@ -294,7 +275,6 @@ def dashboard():
 # ------------------ Edit Profile Route ------------------
 @app.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():
-    cur = g.cur
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
@@ -380,8 +360,7 @@ def booking_form():
         user_id = session.get('user_id')
 
         cursor = db.cursor()
-        cur = g.cur
-        cur.execute("""
+        cursor.execute("""
             INSERT INTO bookings (user_id, full_name, email, phone_number, adults, children, package_type, travel_date, status) 
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, (user_id, full_name, email, phone_number, adults, children, package_type, travel_date, 'Pending'))
@@ -490,9 +469,8 @@ def set_admin_session():
 
 @app.route("/update_booking_status/<int:booking_id>", methods=["POST"])
 def update_booking_status(booking_id):
-    cur = g.cur
     new_status = request.form.get("status")
-    cur.execute("UPDATE bookings SET status = %s WHERE id = %s", (new_status, booking_id))
+    cursor.execute("UPDATE bookings SET status = %s WHERE id = %s", (new_status, booking_id))
     db.commit()
     flash("Booking status updated!", "success")
     return redirect(url_for("admin_dashboard"))
@@ -505,16 +483,15 @@ def update_packages():
 @app.route("/search_user", methods=["GET", "POST"])
 def search_user():
     if request.method == "POST":
-        cur = g.cur
         email = request.form['email']
         
         # Fetch user details by email
-        cur.execute("SELECT id, name, email, phone FROM users WHERE email = %s", (email,))
+        cursor.execute("SELECT id, name, email, phone FROM users WHERE email = %s", (email,))
         user_data = cursor.fetchone()
 
         if user_data:
             # Fetch the booking history for the found user
-            cur.execute("""
+            cursor.execute("""
                 SELECT id, package_type, booking_date, status 
                 FROM bookings WHERE user_id = %s
                 """, (user_data['id'],))
