@@ -20,15 +20,15 @@
         <form method="POST" action="{{ url_for('signup') }}">
             <div class="mb-4">
                 <label for="name" class="block text-sm">Full Name</label>
-                <input type="text" name="name" pattern="[A-Za-z\s]+" title="only alphabets and spaces are allowed" class="w-full p-2 border border-gray-300 rounded" required>
+                <input type="text" name="name" class="w-full p-2 border border-gray-300 rounded" required pattern="[A-Za-z\s]+" title="only alphabets and spaces are allowed">
             </div>
             <div class="mb-4">
                 <label for="email" class="block text-sm">Email</label>
-                <input type="email" name="email" pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" title="Enter a valid Gmail address (must end with @gmail.com)" class="w-full p-2 border border-gray-300 rounded" required>
+                <input type="email" name="email"  class="w-full p-2 border border-gray-300 rounded" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"title="Enter a valid email (e.g., user@example.com)">
             </div>
             <div class="mb-4">
                 <label for="phone" class="block text-sm">Phone</label>
-                <input type="phone" name="phone" pattern="^[0-9]{10}$" title="Enter a valid 10-digit phone number" class="w-full p-2 border border-gray-300 rounded" required>
+                <input type="phone" name="phone" class="w-full p-2 border border-gray-300 rounded" required pattern="[0-9]{10}" maxlength="10" title="Enter a valid 10-digit phone number">
             </div>
             <div class="mb-4">
                 <label for="password" class="block text-sm">Password</label>
