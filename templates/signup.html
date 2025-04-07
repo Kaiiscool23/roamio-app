@@ -14,19 +14,6 @@
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen">
-    <!-- Flash messages -->
-    <div class="container mt-3">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-    </div>
     <div class="bg-white bg-opacity-75 p-8 rounded shadow-lg max-w-sm w-full">
         <h2 class="text-2xl font-bold text-center mb-4">Sign Up</h2>
         <!-- Sign Up Form -->
@@ -59,12 +46,7 @@
         <div class="text-center mt-4">
             <a href="{{ url_for('reset_password_request') }}" class="text-blue-600">Forgot Password?</a>
         </div>
-        </div>
-        <script>
-            setTimeout(function() {
-            let alert = document.querySelector('.alert');
-            if (alert) alert.style.display = 'none';
-            }, 4000);
-        </script>
+    </div>
+    
 </body>
 </html>
