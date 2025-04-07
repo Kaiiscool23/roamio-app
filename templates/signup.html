@@ -20,29 +20,23 @@
         <form method="POST" action="{{ url_for('signup') }}">
             <div class="mb-4">
                 <label for="name" class="block text-sm">Full Name</label>
-                <input type="text" name="name" pattern="[A-Za-z\s]+" title="Only alphabets and spaces are allowed" class="w-full p-2 border border-gray-300 rounded" required>
+                <input type="text" name="name" pattern="[A-Za-z\s]+" title="only alphabets and spaces are allowed" class="w-full p-2 border border-gray-300 rounded" required>
             </div>
-            
             <div class="mb-4">
                 <label for="email" class="block text-sm">Email</label>
                 <input type="email" name="email" pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" title="Enter a valid Gmail address (must end with @gmail.com)" class="w-full p-2 border border-gray-300 rounded" required>
             </div>
-            
             <div class="mb-4">
                 <label for="phone" class="block text-sm">Phone</label>
-                <input type="text" name="phone" pattern="^[0-9]{10}$" title="Enter a valid 10-digit phone number" class="w-full p-2 border border-gray-300 rounded" maxlength="10" required>
+                <input type="phone" name="phone" pattern="^[0-9]{10}$" title="Enter a valid 10-digit phone number" class="w-full p-2 border border-gray-300 rounded" required>
             </div>
-            
             <div class="mb-4">
                 <label for="password" class="block text-sm">Password</label>
                 <input type="password" name="password_hash" class="w-full p-2 border border-gray-300 rounded" required>
             </div>
-            
             <div class="mb-4">
                 <label for="confirm_password" class="block text-sm">Confirm Password</label>
                 <input type="password" name="confirm_password" class="w-full p-2 border border-gray-300 rounded" required>
-            </div>
-            
             </div>
             <button type="submit" class="w-full p-2 bg-blue-600 text-white rounded">Sign Up</button>
         </form>
