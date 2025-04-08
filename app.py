@@ -333,7 +333,7 @@ def edit_profile():
             file.save(file_path)
             photo_filename = filename  # Save the filename
         # Check if the new email already exists and belongs to another user
-        cursor.execute("SELECT * FROM users WHERE email = %s AND id != %s", (new_email, user_id))
+        cursor.execute("SELECT * FROM users WHERE email = %s AND id != %s", (email, user_id))
         existing_user = cursor.fetchone()
 
         if existing_user:
