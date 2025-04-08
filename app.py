@@ -229,19 +229,26 @@ def feedback_page():
     ensure_connection()
     return render_template('feedback.html')
 
-# Route to handle feedback submission
 @app.route('/submit-feedback', methods=['POST'])
 def submit_feedback():
     ensure_connection()
-    if request.is_json:  # Ensure request contains JSON data
+    if request.is_json:
         data = request.get_json()
         rating = data.get('rating')
         feedback_text = data.get('feedback')
+        user_id = session.get('user_id')  # get the logged-in user's ID, if available
 
-        # Here, you can store the feedback in a database or a file
+        conn = connect_db()
+        cursor = conn.cursor()
+        query = "INSERT INTO feedback (rating, feedback_text, user_id) VALUES (%s, %s, %s)"
+        cursor.execute(query, (rating, feedback_text, user_id))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
         return jsonify({'feedback': {'rating': rating, 'feedback': feedback_text}})
     
-    return jsonify({"error": "Unsupported Media Type"}), 415  # Return 415 if not JSON
+    return jsonify({"error": "Unsupported Media Type"}), 415
 @app.route('/faq')
 def faq():
     ensure_connection()
