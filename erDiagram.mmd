@@ -1,0 +1,46 @@
+erDiagram
+    USERS ||--o{ BOOKINGS : "1:N"
+    USERS ||--o{ SEARCH_HISTORY : "1:N"
+    BOOKINGS }|--|| DESTINATIONS : "N:1"
+
+    USERS {
+        int id PK
+        varchar(100) name
+        varchar(255) email
+        varchar(20) phone
+        varchar(255) password_hash
+        varchar(255) reset_token
+        datetime reset_token_expiry
+        timestamp created_at
+        timestamp updated_at
+        longblob photo
+        varchar(50) role
+    }
+
+    BOOKINGS {
+        int id PK
+        int user_id FK
+        varchar(255) full_name
+        varchar(255) email
+        varchar(20) phone_number
+        int adults
+        int children
+        varchar(255) package_type
+        date travel_date
+        varchar(20) status "Pending/Confirmed/Cancelled"
+        timestamp booking_date
+    }
+
+    DESTINATIONS {
+        int id PK
+        varchar(255) name
+        varchar(255) location
+        text description
+    }
+
+    SEARCH_HISTORY {
+        int id PK
+        text query
+        timestamp search_time
+        int user_id FK
+    }

@@ -32,6 +32,20 @@ db = mysql.connector.connect(
     database=url.path.lstrip("/"),
     port=url.port
 )
+def ensure_connection():
+    global db, cursor
+    try:
+        db.ping(reconnect=True, attempts=3, delay=2)  # reconnect if disconnected
+    except mysql.connector.Error as err:
+        print(f"[Reconnect Error] {err}")
+        db = mysql.connector.connect(
+            host=url.hostname,
+            user=url.username,
+            password=url.password,
+            database=url.path.lstrip("/"),
+            port=url.port
+        )
+        cursor = db.cursor(dictionary=True)
 
 # Use dictionary=True so fetched rows can be accessed like dicts
 cursor = db.cursor(dictionary=True)
@@ -72,6 +86,7 @@ def allowed_file(filename):
 # Signup Route
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    ensure_connection()
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
@@ -93,8 +108,10 @@ def signup():
             return redirect(url_for('login'))
 
     return render_template('signup.html')
+    
 @app.route('/login', methods=['GET', 'POST']) 
 def login():
+    ensure_connection()
     print("Login route accessed")  # Debugging line
     if request.method == 'POST':
         print("POST request received")  # Debugging line
@@ -132,6 +149,7 @@ def login():
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
+    ensure_connection()
     if request.method == 'POST':
         email = request.form['email'].strip().lower()
 
@@ -165,6 +183,7 @@ def reset_password_request():
 
 @app.route('/reset_password_otp/<token>', methods=['GET', 'POST'])
 def reset_password_otp(token):
+    ensure_connection()
     try:
         cursor.execute("SELECT * FROM users WHERE reset_token = %s AND reset_token_expiry > %s", 
                        (token, datetime.now()))
@@ -198,6 +217,7 @@ def reset_password_otp(token):
 # Home Route (Default)
 @app.route('/')
 def home():
+    ensure_connection()
     if 'user_id' in session:
         return render_template('index.html')
     else:
@@ -206,11 +226,13 @@ def home():
 # Route to serve the feedback.html page
 @app.route('/feedback')
 def feedback_page():
+    ensure_connection()
     return render_template('feedback.html')
 
 # Route to handle feedback submission
 @app.route('/submit-feedback', methods=['POST'])
 def submit_feedback():
+    ensure_connection()
     if request.is_json:  # Ensure request contains JSON data
         data = request.get_json()
         rating = data.get('rating')
@@ -222,16 +244,19 @@ def submit_feedback():
     return jsonify({"error": "Unsupported Media Type"}), 415  # Return 415 if not JSON
 @app.route('/faq')
 def faq():
+    ensure_connection()
     return "<h1>FAQs</h1><p>Coming soon...</p>"
 
 @app.route('/contact')
 def contact():
+    ensure_connection()
     return "<h1>Contact Us</h1><p>Email: support@roamio.com</p>"
 
 
 # ------------------ Dashboard Route ------------------
 @app.route('/dashboard')
 def dashboard():
+    ensure_connection()
     if 'user_id' not in session:
         return redirect(url_for('login'))  # Redirect if not logged in
 
@@ -279,6 +304,7 @@ def dashboard():
 # ------------------ Edit Profile Route ------------------
 @app.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():
+    ensure_connection()
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
@@ -299,6 +325,13 @@ def edit_profile():
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
             photo_filename = filename  # Save the filename
+        # Check if the new email already exists and belongs to another user
+        cursor.execute("SELECT * FROM users WHERE email = %s AND id != %s", (new_email, user_id))
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+            flash('Email is already in use by another account.', 'danger')
+            return redirect(url_for('edit_profile'))
 
         # Update user details in database
         if photo_filename:
@@ -320,6 +353,7 @@ def edit_profile():
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
+    ensure_connection()
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
     
@@ -330,28 +364,34 @@ def error_page():
 
 @app.route("/nature")
 def nature():
+    ensure_connection()
     return render_template("nature.html")
 
 
 @app.route('/kerala')
 def kerala():
+    ensure_connection()
     return render_template('kerala.html')
 
 @app.route('/train')
 def train():
+    ensure_connection()
     return render_template('train.html')
 @app.route('/international')
 def international():
+    ensure_connection()
     return render_template('international.html')
 
 # Booking page
 @app.route('/booking')
 def booking():
+    ensure_connection()
     return render_template('booking.html')
 
 # Route for booking_form.html
 @app.route('/booking_form', methods=['GET', 'POST'])
 def booking_form():
+    ensure_connection()
     if request.method == 'POST':
         full_name = request.form.get('name')
         email = request.form.get('email')
@@ -377,47 +417,56 @@ def booking_form():
 # Route for one_day.html
 @app.route('/one_day')
 def one_day():
+    ensure_connection()
     return render_template('one_day.html')
 
 # Route for two_days.html
 @app.route('/two_days')
 def two_days():
+    ensure_connection()
     return render_template('two_days.html')
 
 # Route for one_day_two_night.html
 @app.route('/one_day_two_night')
 def one_day_two_night():
+    ensure_connection()
     return render_template('one_day_two_night.html')
 
  #Route for two_day_three_night.html
 @app.route('/two_days_three_nights')
 def two_days_three_nights():
+    ensure_connection()
     return render_template('two_days_three_nights.html')
 
 
  #Route for three_days.html
 @app.route('/three-days')
 def three_days():
+    ensure_connection()
     return render_template('three_days.html')
 
  #Route for three_days_four_nights.html
 @app.route('/three_days_four_nights')
 def three_days_four_nights():
+    ensure_connection()
     return render_template('three_days_four_nights.html')
 
  #Route for four_days_five_nights.html
 @app.route('/four_days_five_nights')
 def four_days_five_nights():
+    ensure_connection()
     return render_template('four_days_five_nights.html')
  
  #Route for five_days_six_nights.html
 @app.route('/five_days_six_nights')
 def five_days_six_nights():
+    ensure_connection()
     return render_template('five_days_six_nights.html')
 
     
 @app.route('/confirm-booking', methods=['POST'])
 def confirm_booking():
+    ensure_connection()
     if request.method == 'POST':
         #Get form data
         name = request.form.get('name')
@@ -432,10 +481,12 @@ def confirm_booking():
 
 @app.route('/chatbot')
 def chatbot():
+    ensure_connection()
     return render_template('chatbot.html')
 
 @app.route("/chat", methods=["POST"])
 def chat():
+    ensure_connection()
     user_message = request.json.get("message", "").lower()
     print(f"Received message: {user_message}")  # Debugging line
 
@@ -459,6 +510,7 @@ def chat():
 
 @app.route("/admin_dashboard")
 def admin_dashboard():
+    ensure_connection()
     if not session.get('is_admin'):
         return redirect(url_for('login')) 
     cursor.execute("SELECT * FROM bookings")
@@ -467,12 +519,14 @@ def admin_dashboard():
 
 @app.route('/set_admin_session', methods=['POST'])
 def set_admin_session():
+    ensure_connection()
     session['is_admin'] = True
     return '', 204  # No content response
 
 
 @app.route("/update_booking_status/<int:booking_id>", methods=["POST"])
 def update_booking_status(booking_id):
+    ensure_connection()
     new_status = request.form.get("status")
     cursor.execute("UPDATE bookings SET status = %s WHERE id = %s", (new_status, booking_id))
     db.commit()
@@ -481,11 +535,13 @@ def update_booking_status(booking_id):
 
 @app.route('/update_packages', methods=['GET', 'POST'])
 def update_packages():
+    ensure_connection()
     # Your package update logic here
     return render_template('update_packages.html')
 
 @app.route("/search_user", methods=["GET", "POST"])
 def search_user():
+    ensure_connection()
     if request.method == "POST":
         email = request.form['email']
         
@@ -511,6 +567,7 @@ def search_user():
 
 
 def send_booking_email(destination, date):
+    ensure_connection()
     msg = Message(
         subject="New Booking Alert!",
         sender="yourcompany@gmail.com",
@@ -521,6 +578,7 @@ def send_booking_email(destination, date):
    
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
+    ensure_connection()
     if request.method == 'POST':
         password = request.form['password']
         if password == 'appas_123@@':
@@ -532,6 +590,7 @@ def admin_login():
 
 @app.route("/admin_logout")
 def admin_logout():
+    ensure_connection()
     # Remove admin session variable if it exists
     session.pop('admin_logged_in', None)
     flash("Logged out successfully!", "success")
